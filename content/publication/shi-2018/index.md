@@ -1,0 +1,12 @@
+---
+title: "Successional change in species composition alters climate sensitivity of grassland productivity"
+date: 2018-01-01
+publishDate: 2019-08-06T22:46:27.276413Z
+authors: ["Zheng Shi", "Yang Lin", "Kevin R. Wilcox", "Lara Souza", "Lifen Jiang", "Jiang Jiang", "Chang Gyo Jung", "Xia Xu", "Mengting Yuan", "Xue Guo", "Liyou Wu", "Jizhong Zhou", "Yiqi Luo"]
+publication_types: ["2"]
+abstract: "Succession theory predicts altered sensitivity of ecosystem functions to disturbance (i.e., climate change) due to the temporal shift in plant community composition. However, empirical evidence in global change experiments is lacking to support this prediction. Here, we present findings from an 8‐year long‐term global change experiment with warming and altered precipitation manipulation (double and halved amount). First, we observed a temporal shift in species composition over 8 years, resulting in a transition from an annual C3‐dominant plant community to a perennial C4‐dominant plant community. This successional transition was independent of any experimental treatments. During the successional transition, the response of aboveground net primary productivity (ANPP) to precipitation addition magnified from neutral to +45.3%, while the response to halved precipitation attenuated substantially from −17.6% to neutral. However, warming did not affect ANPP in either state. The findings further reveal that the time‐dependent climate sensitivity may be regulated by successional change in species composition, highlighting the importance of vegetation dynamics in regulating the response of ecosystem productivity to precipitation change. We observed a temporal shift in species composition over 8 years, resulting in a transition from an annual C3‐dominant plant community to a perennial C4‐dominant plant community. During the successional transition, the response of aboveground net primary productivity (ANPP) to precipitation addition magnified from neutral to +45.3%, while the response to halved precipitation attenuated substantially from −17.6% to neutral. However, warming did not affect ANPP in either state. The findings further reveal that the time‐dependent climate sensitivity may be regulated by successional change in species composition, highlighting the importance of vegetation dynamics in regulating the response of ecosystem productivity to precipitation change."
+featured: false
+publication: "*Global Change Biology*"
+doi: "10.1111/gcb.14333"
+---
+

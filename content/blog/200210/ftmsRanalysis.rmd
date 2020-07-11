@@ -1,0 +1,211 @@
+---
+title: "FTICR-MS data analysis with ftmsRanalysis"
+author: "Yang Lin"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Background
+Fourier-transform ion cyclotron resonance mass spectrometry (FTICR-MS) is an exciting technique that enables scientists to acquire detailed information of soil organic matter. Processing FTICR-MS data, however, is not straightforward. Luckily, folks at the Environmental Molecular Sciences Laboratory (EMSL) have developed a R package `ftmsRanalysis` that makes FTICR-MS data processing and visualization more feasible than ever before. 
+
+[A tutorial](https://emsl-computing.github.io/ftmsRanalysis/articles/ftmsRanalysis.html) of the `ftmsRanalysis` package offers very valuable information on how to get started. Several vignettes on data visualization can also be found on [here](https://emsl-computing.github.io/ftmsRanalysis/index.html). The package also enables other cool analyses that weren't discussed by these vignettes, such as ordination and group comparison. 
+
+In this blog, I will show how to perform a non-metric multidimensional scaling (NMDS) and plot the results. I will also show how to compare the nominal oxidation state of carbon (NOSC) between treatments. 
+
+Most of the scripts in this demo were provided to me by the amazing Allison Thompson at EMSL with some modifications. 
+
+# Installation
+The package may be installed from github using the command:
+```{r eval=FALSE, include=T}
+devtools::install_github("EMSL-Computing/ftmsRanalysis")
+
+```
+# Getting the data
+For this demo, I will use the example dataset included with the `ftmsRanalysis` package. This dataset compares the composition of water-extractable soil organic matter between two locations (M and W) and two crop flora (C and S). 
+
+There are three data tables that are essential to the analysis: 
+
+1. **Expression Data**, the values here correspond to the peak intensity measured by the MS. Columns represent individual samples (i.e., extractant). Rows indicate the chemical compounds (or peaks) detected by the MS. This example dataset includes 20 samples, and over 24,400 types of peaks. 
+
+2. **Sample Data** include the meta-data characterizing the experimental design. For example, there are columns indicating the location (M and W), crop flora (C and S), and experimental blocks (1-5). 
+
+3. **Molecular Identification Data** include stoichiometry information of the detected compounds. Columns correspond to the elements (e.g., carbon, hydrogen, nitrogen, etc.). In some cases, these data columns may be stored together with Expression Data. 
+
+## e_data (Expression Data)
+```{r }
+library(ftmsRanalysis)
+data("ftms12T_edata")
+str(ftms12T_edata)
+```
+## f_data (Sample Data)
+```{r}
+data("ftms12T_fdata")
+str(ftms12T_fdata)
+```
+
+## e_meta (Molecular Identification Data)
+```{r }
+data("ftms12T_emeta")
+str(ftms12T_emeta)
+```
+
+## Constructing a peakData object
+Here, I merge the three data tables together to form a peakData object. I need to provide the names of the three data tables and the column names of the following: peak name in the e_data table (edata_cname), sample name in the f_data table (fdata_cname), peak name in the e_meta table (mass_cname), and names of  the elemental counts (e.g., c_cname for carbon). 
+
+```{r}
+peakObj <- as.peakData(ftms12T_edata, ftms12T_fdata, ftms12T_emeta, 
+                       edata_cname="Mass", fdata_cname="SampleID", 
+                       mass_cname="Mass", c_cname="C", h_cname="H", 
+                       o_cname="O", n_cname="N", s_cname="S", 
+                       p_cname="P", isotopic_cname = "C13", 
+                       isotopic_notation = "1")
+peakObj
+```
+Not surprisingly, the 'peakData' object contains three elements, i.e., e_data, f_data, and e_meta:
+```{r}
+names(peakObj)
+```
+
+# Data preprocessing
+I apply three filters here. The first removes any peak outside of the range 200-900 m/z. The second removes any peak that is only seen in one sample. The third removes any peak that isn’t assigned to a formula (remaining analyses all require a formula).
+
+```{r}
+# filter data to have mass between 200 and 900 #
+peakObj.massFilt <- mass_filter(peakObj)
+peakObj <- applyFilt(filter_object = peakObj.massFilt, peakObj, min_mass = 200, max_mass = 900)
+
+# count the number of samples each peak was observed in #
+peakObj.molFilt <- molecule_filter(peakObj)
+# filter out peaks/masses observed in less than 1 samples #
+peakObj <- applyFilt(filter_object = peakObj.molFilt, peakObj, min_num = 1)
+
+# filter to only those peaks that have a formula assigned #
+peakObj.peakFilt <- formula_filter(peakObj)
+```
+A simple peaks-per-sample plot can be obtained as follows. 
+
+```{r}
+# Plot number of peaks per sample
+library(ggplot2)
+numPeaksPlot(peakObj)
+
+```
+A sample may be considered as an outlier, if it contains a very small number of peaks, say < 100. An outlier can be removed as follows. 
+
+```{r}
+peakObj.1 <- peakObj
+# include the names of outliers here
+outlierlist <- c("EM0011_sample","EM0065_sample")
+peakObj.1$e_data <- peakObj.1$e_data[,-which(colnames(peakObj.1$e_data) %in% outlierlist)]
+```
+
+# NMDS ordination
+I start this exercise by converting peak intensity to presence/absence and then run NMDS ordination using `metaMDS` function of the `vegan` package.
+
+```{r}
+# transform from abundance to presence/absence
+peakObj.pa <- edata_transform(peakObj, data_scale = "pres")
+library(vegan)
+# calculate nmds values
+peak.nmds <- metaMDS(t(as.matrix(peakObj.pa$e_data[,-1])), distance="jaccard", autotransform=FALSE)
+
+```
+I create a new column in the f_data table called 'treatment' by merging the two treatments: location and crop flora. It will help us examine their interactive effects. 
+```{r}
+peakObj$f_data$treatment <- paste(peakObj$f_data$Location,peakObj$f_data$Crop.Flora)
+peakObj.pa$f_data$treatment <- paste(peakObj.pa$f_data$Location,peakObj.pa$f_data$Crop.Flora)
+
+```
+
+NMDS scores will extracted and then merged with f_data for plotting. 
+```{r}
+#format results
+library(plotly)
+peak_plot <- data.frame(NMD1=peak.nmds$points[,1], NMD2=peak.nmds$points[,2], Water=names(peakObj.pa$e_data)[-1])
+peak_plot <- merge(peak_plot, peakObj.pa$f_data, by.x="Water", by.y="SampleID")
+peak_p <- ggplot(peak_plot, aes(x=NMD1, y=NMD2, colour=treatment, label=Water))+
+  geom_point(size=4)+
+  scale_color_manual(values=c("#e0115f","#fabbd3","#5a4fcf","#dcdaf5"))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        plot.background = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour="black"))+
+  labs(x = "NMD1", y = "NMD2", title = "NMDS")
+plotly::ggplotly(peak_p)
+
+```
+
+# NOSC comparison
+For each peak, its NOSC value needs to be calculated first. Other calculations can be done simultaneously, including aromaticity, double bond equivalent, gibbs free energy, Kendrick mass and Kendrick mass defect, and elemental ratios. 
+```{r}
+peakObj <- compound_calcs(peakObj)
+# a table showing the quantiles of the indices 
+apply(peakObj$e_meta[,-c(1:11)], 2, function(x) quantile(x, na.rm=TRUE))
+
+```
+
+For now, NOSC values are stored in the e_meta table. A new data table called `nosc` is created by merging e_meta with f_data. I am also interested in extracting the compound classes of peaks. I am using the class boundary definitions as in Kim et al. (2003). 
+
+* `bs1` - [Kim, S., et al (2003). Analytical Chemistry.](https://dx.doi.org/10.1021/ac034415p){target="_blank"}
+
+
+```{r}
+```
+
+
+```{r}
+# extract chemical classes
+cats<- assign_class(peakObj, "bs1")$e_meta$bs1_class
+cats <- gsub(";.*","",cats)
+
+# format data
+library(reshape2)
+nosc <- merge(melt(data.frame(CLASS=cats,peakObj$e_data)), peakObj$e_meta, by="Mass")
+nosc <- merge(nosc, peakObj$f_data, by.x="variable", by.y="SampleID")
+# remove those peaks that haven't been assigned a molecular formula 
+nosc <- subset(nosc, !is.na(MolForm) & value != 0)
+
+```
+
+Then, mean NOSC value is calculated for each sample and plotted. 
+```{r}
+library(dplyr)
+nosc.mean <- nosc %>% group_by(variable, Location, Crop.Flora, treatment) %>% summarise(Mean=mean(NOSC, na.rm=TRUE),SE=sd(NOSC)/sqrt(length(NOSC)),SD=sd(NOSC))
+
+nosc_p <- ggplot(data = nosc.mean, aes(x=treatment, y=Mean, colour=treatment)) +
+  geom_boxplot(outlier.size = 1)+
+  scale_color_manual(values=c("#e0115f","#fabbd3","#5a4fcf","#dcdaf5"))+
+  labs(title = '', y = 'Mean NOSC')+   
+  theme_bw()
+plotly::ggplotly(nosc_p)
+```
+
+Analysis of variance (ANOVA) can be used to evaluate treatment effects on mean NOSC. Results suggest that Crop Flora had a significant effect on NOSC, while Location did not. 
+```{r}
+lm <- lm(Mean ~ Location*Crop.Flora, data=nosc.mean)
+summary(lm)
+
+```
+
+Mean NOSC values can also be compared per compound class. The effects of Crop Flora are apparent in the classes of condensed hydrocarbon, lignin, and tannin. 
+
+```{r}
+nosc.class.mean <- nosc %>% group_by(variable, CLASS, Location, Crop.Flora, treatment) %>% summarise(Mean=mean(NOSC, na.rm=TRUE),SE=sd(NOSC)/sqrt(length(NOSC)),SD=sd(NOSC))
+
+nosc_class_p <- ggplot(data = nosc.class.mean, aes(x=treatment, y=Mean, colour=treatment)) +
+  geom_boxplot(outlier.size = 1)+
+  scale_color_manual(values=c("#e0115f","#fabbd3","#5a4fcf","#dcdaf5"))+
+  labs(title = '', y = 'Mean NOSC')+  
+  facet_wrap(CLASS~., scales="free_y")+
+  theme_bw()
+plotly::ggplotly(nosc_class_p)
+
+```
+

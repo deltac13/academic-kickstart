@@ -1,0 +1,12 @@
+---
+title: "Using 2D NMR spectroscopy to assess effects of UV radiation on cell wall chemistry during litter decomposition"
+date: 2015-01-01
+publishDate: 2019-08-06T22:46:27.193634Z
+authors: ["Yang Lin", "Jennifer Y. King", "Steven D. Karlen", "John Ralph"]
+publication_types: ["2"]
+abstract: "Litter chemistry is one of the most studied controls on decomposition in terrestrial ecosystems. Solar radiation has been shown to increase litter decomposition rates in arid ecosystems through the process of photodegradation. However, it remains unclear how photodegradation affects litter chemistry, especially the abundance and composition of lignin, which is thought to play a key role in photodegradation. Using two-dimensional nuclear magnetic resonance (2D NMR) spectroscopic methods, we quantified the molecular-level changes in litter chemistry associated with photodegradation. Litter of Bromus diandrus was exposed in the field to two levels of radiation [with and without ultraviolet (UV) wavelengths] and two durations of exposure (2.5 months during summer, and 1 year). Through fiber analysis by sequential digestion, we found that the litter hemicellulose fraction decreased significantly from 31.6 to 24.9 % after 1 year of decomposition. In litter exposed for 1 year, the hemicellulose fraction was significantly lower in litter with UV exposure compared to litter without UV exposure (23.8 vs. 25.9 %). These results indicate that UV photodegradation has a small but significant effect on litter chemistry compared to other decomposition processes. Even though fiber analysis showed no loss of total lignin, 2D NMR analysis demonstrated that UV exposure reduced the major lignin structural units containing β-aryl ether inter-unit linkages by 9 % and decreased the relative abundance of lignin p-hydroxyphenyl units by 20 %. The 2D NMR analysis also revealed that lignin guaiacyl units were preferentially lost after 1 year of decomposition relative to the reference material, but no effects of UV exposure on guaiacyl units were observed. These results suggest that photodegradation causes partial degradation, not necessarily complete breakdown, of lignin structures. Our data also demonstrate that applications of 2D NMR methods are valuable for acquiring detailed information on lignin and polysaccharide chemistry during both biotic and abiotic decomposition processes."
+featured: false
+publication: "*Biogeochemistry*"
+doi: "10.1007/s10533-015-0132-1"
+---
+

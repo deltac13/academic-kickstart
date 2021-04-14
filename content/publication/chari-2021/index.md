@@ -1,0 +1,13 @@
+---
+title: "Interactive effects of temperature and redox on soil carbon and iron cycling"
+date: 2021-03-01
+publishDate: 2021-03-31T13:32:55.536284Z
+authors: ["Nikhil R. Chari", "Yang Lin", "Yuan S. Lin", "Whendee L. Silver"]
+publication_types: ["2"]
+abstract: "Shifts in temperature and rainfall regimes with climate change can feed back on redox dynamics and associated biogeochemical cycling in humid environments. This has global implications for greenhouse gas emissions and ecosystem carbon (C) storage and loss. Though aerobic carbon dioxide (CO2) production is generally understood to follow an Arrhenius-type temperature dependence, the temperature sensitivity of anaerobic metabolisms such as iron (Fe) reduction and methane (CH4) fluxes, both processes affecting C cycling in soils, remains unclear in upland soils. We used a fully factorial incubation experiment to examine the interactive effects of temperature (8, 26, and 35 °C) and redox (oxic and anoxic) conditions on CO2 production, CH4 fluxes, Fe reduction, microbial biomass C, and the microbial metabolic quotient (MMQ) in upland soils from two contrasting climate regimes and redox environments: a tropical forest in Puerto Rico (PR) and a temperate peatland in California (CA). Under oxic conditions, we found that CO2 production increased across both temperature gradients (8-26 °C and 26-35 °C). In contrast, under anoxic conditions, net CH4 fluxes and Fe reduction exhibited a greater temperature sensitivity between 26-35 °C than 8-26 °C in both PR and CA soils. We also observed coupling between Fe reduction and net CH4 fluxes in PR and CA soils consistent with competition for acetate. The anoxic MMQ increased in PR soils at high temperature, but not in CA soils, suggesting that the native PR environment may favor the development of more efficient microbial communities better able to tolerate warmer, wetter conditions. Together, our results suggest that anaerobic microbial metabolisms may be much more sensitive to higher temperature than aerobic ones, possibly due to proportionally greater anaerobic microbial activity at high temperature. Our results suggest that increased global temperatures combined with higher rainfall regimes may significantly increase anaerobic greenhouse gas production in humid environments."
+featured: false
+publication: "*Soil Biology and Biochemistry*"
+tags: ["methane", "iron reduction", "redox", "temperature", "microbial biomass", "carbon", "Puerto Rico", "Sacramento San Joaquin Delta", "tropical forest", "temperate peatland"]
+url_pdf: "https://www.sciencedirect.com/science/article/pii/S0038071721001073"
+---
+

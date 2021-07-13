@@ -44,7 +44,7 @@ interests:
 social:
 - icon: envelope
   icon_pack: fas
-  link: "#mailto:ylin2@ufl.edu" 
+  link: "mailto:ylin2@ufl.edu" 
 # For a direct email link, use "mailto:test@example.org".
 - icon: twitter
   icon_pack: fab

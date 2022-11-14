@@ -18,7 +18,7 @@ superuser: false
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-- Grad Students
+- "Alumni"
 
 ---
-Precious is a MSc Student interested in soil and water conservation.
+Precious was a MSc Student interested in soil and water conservation. She is now a Research Associate at Pattern Ag. 

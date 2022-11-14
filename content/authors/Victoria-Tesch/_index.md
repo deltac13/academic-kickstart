@@ -8,7 +8,7 @@ role: Undergradate Assistant
 social:
 superuser: false
 user_groups:
-- "Undergrad Students"
+- "Alumni"
 ---
 
-Victoria is interested in soil health and management. 
+Victoria was an undergrad student interested in soil health and management. She starts her M.S. program at UF in Fall 2022. 

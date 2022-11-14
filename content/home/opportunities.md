@@ -12,7 +12,7 @@ weight: 60  # Order that this section will appear.
 
 ---
 
-## The Lin Lab (https://ylinterra.com) does not have openings for new graduate students to start in Fall 2021. Below is an ad from the past year. 
+## The Lin Lab (https://ylinterra.com) does not have openings for new graduate students to start in Fall 2023. Below is an ad from the past year. 
 
 The students would become part of the Department of Soil and Water Sciences at the University of Florida (https://soils.ifas.ufl.edu). Our overall objective is to advance the understanding of soil as a complex system to promote environmental sustainability. We are particularly interested in how different components of a soil system interact with each other and how these interactions enable/regulate the resilience of soil against disturbance. We have a strong background in applying methods in biogeochemistry and environmental chemistry to study the cycling of carbon and nutrients in soil systems. We also collaborate with modelers to analyze the drivers and implications of soil diversity at regional to global scales. Projects of particular interest include 1) lab- and field-based assessment of soil carbon dynamics in agricultural systems; 2) soil health assessment in sandy and subtropical soils; 3) large-scale ecoinformatics analyses of soil systems. 
 

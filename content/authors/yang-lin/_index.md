@@ -33,9 +33,9 @@ education:
     year: 2007
 
 interests:
+- Soil Health
 - Soil Biogeochemistry
 - Ecosystem Ecology
-- Applied Statistics
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
@@ -70,6 +70,6 @@ user_groups:
 - Principal Investigator
 ---
 
-I am an assistant professor in the Soil and Water Sciences Department at the University of Florida. My research interests include soil carbon persistence and decomposition, coupled carbon-nutrient cycling in terrestrial ecosystems, redox dynamics in upland soils, and biogeochemical implications of climate change and land use. My field sites spans a wide range of ecosystems, including arid grasslands, sub-tropical forests, and agricultural landscapes. I take a variety of analytical approaches to characterize the physical, chemical, and biological properties of plant, soil, and water samples.
+The Lin Lab at the University of Florida seeks to advance the understanding and application of soil health principles in the management of agricultural and natural ecosystems. Our research covers a wide range of topics including soil health assessment, organic matter persistence, remediation of legacy phosphorus, and nature-based solutions to climate change. We are a group of scientists who value diversity and inclusion and challenge each other in moving our science forward.
 
-I am looking for MSc and PhD students interested in soil carbon and soil health.  Check out [Opportunities](#opportunities)  for more information on the application! Get in touch with me via email and twitter!
+
